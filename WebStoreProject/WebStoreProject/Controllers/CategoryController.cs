@@ -7,7 +7,7 @@ using WebStoreProject.Models;
 
 namespace WebStoreProject.Controllers
 {
-    public class CatergoryController : Controller
+    public class CategoryController : Controller
     {
         // GET: Catergory
         public ActionResult Index()
@@ -15,6 +15,7 @@ namespace WebStoreProject.Controllers
             using(DBModel db = new DBModel())
             {
                 List<Category> categories = db.Category.ToList<Category>();
+
                 return View(categories);
             }
         }
@@ -33,13 +34,18 @@ namespace WebStoreProject.Controllers
 
         // POST: Catergory/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Category category)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                using(DBModel db = new DBModel())
+                {
+                    db.Category.Add(category);
+                    db.SaveChanges();
+                        
+                }
+                    return RedirectToAction("Index");
             }
             catch
             {

@@ -29,5 +29,7 @@ namespace WebStoreProject.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<WebStoreProject.Models.Category> Categories { get; set; }
     }
 }

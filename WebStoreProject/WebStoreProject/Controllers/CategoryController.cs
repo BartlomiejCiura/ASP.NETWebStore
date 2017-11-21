@@ -97,6 +97,7 @@ namespace WebStoreProject.Controllers
         {
             try
             {
+                
                 Category category = db.Category.Find(id);
                 db.Category.Remove(category);
                 db.SaveChanges();

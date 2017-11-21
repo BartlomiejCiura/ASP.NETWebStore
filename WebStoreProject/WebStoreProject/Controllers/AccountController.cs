@@ -155,6 +155,18 @@ namespace WebStoreProject.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    using(DBModel db = new DBModel())
+                    {
+                        Users users = new Users();
+                        users.Name = model.Name;
+                        users.Email = model.Email;
+                        users.Password = model.Password;
+                        users.Address = model.Address;
+                        users.Price_display = "BRUTTO";
+                        users.Role = "ROLE_USER";
+                        db.Users.Add(users);
+                        db.SaveChanges();
+                    }
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

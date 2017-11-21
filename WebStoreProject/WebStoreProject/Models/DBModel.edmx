@@ -57,7 +57,7 @@
           <Property Name="Price_brutto" Type="float" Nullable="false" />
           <Property Name="VAT_id" Type="int" Nullable="false" />
           <Property Name="Weight" Type="float" Nullable="false" />
-          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -67,6 +67,19 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price_display" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -155,10 +168,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_ToTable">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
@@ -211,6 +224,7 @@
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VAT" EntityType="Self.VAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Category_ToTable" Association="Self.FK_Category_ToTable">
@@ -234,7 +248,7 @@
             <End Role="Order_item" EntitySet="Order_item" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_ToTable" Association="Self.FK_Orders_ToTable">
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_ToTable" Association="Self.FK_Product_ToTable">
@@ -263,6 +277,7 @@
           <EntitySet Name="Product" EntityType="DatabaseModel.Product" />
           <EntitySet Name="Status" EntityType="DatabaseModel.Status" />
           <EntitySet Name="User" EntityType="DatabaseModel.User" />
+          <EntitySet Name="Users" EntityType="DatabaseModel.Users" />
           <EntitySet Name="VAT" EntityType="DatabaseModel.VAT" />
           <EntitySet Name="Warehouse" EntityType="DatabaseModel.Warehouse" />
           <AssociationSet Name="FK_Category_ToTable" Association="DatabaseModel.FK_Category_ToTable">
@@ -290,7 +305,7 @@
             <End Role="Order_item" EntitySet="Order_item" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_ToTable" Association="DatabaseModel.FK_Orders_ToTable">
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_ToTable_1" Association="DatabaseModel.FK_Product_ToTable_1">
@@ -352,7 +367,7 @@
           <Property Name="Value" Type="Double" Nullable="false" />
           <NavigationProperty Name="Order_details" Relationship="DatabaseModel.FK_Order_details_ToTable" FromRole="Orders" ToRole="Order_details" />
           <NavigationProperty Name="Order_item" Relationship="DatabaseModel.FK_Order_item_ToTable_1" FromRole="Orders" ToRole="Order_item" />
-          <NavigationProperty Name="User" Relationship="DatabaseModel.FK_Orders_ToTable" FromRole="Orders" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="DatabaseModel.FK_Orders_ToTable" FromRole="Orders" ToRole="Users" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -364,11 +379,11 @@
           <Property Name="Price_brutto" Type="Double" Nullable="false" />
           <Property Name="VAT_id" Type="Int32" Nullable="false" />
           <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Category" Relationship="DatabaseModel.FK_Product_ToTable" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="Order_item" Relationship="DatabaseModel.FK_Order_item_ToTable" FromRole="Product" ToRole="Order_item" />
           <NavigationProperty Name="VAT" Relationship="DatabaseModel.FK_Product_ToTable_1" FromRole="Product" ToRole="VAT" />
           <NavigationProperty Name="Warehouse" Relationship="DatabaseModel.FK_Warehouse_ToTable" FromRole="Product" ToRole="Warehouse" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -390,7 +405,20 @@
           <Property Name="Price_display" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Discount" Type="Int32" />
           <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Orders" Relationship="DatabaseModel.FK_Orders_ToTable" FromRole="User" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price_display" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="DatabaseModel.FK_Orders_ToTable" FromRole="Users" ToRole="Orders" />
         </EntityType>
         <EntityType Name="VAT">
           <Key>
@@ -482,10 +510,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_ToTable">
-          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="DatabaseModel.Users" Role="Users" Multiplicity="1" />
           <End Type="DatabaseModel.Orders" Role="Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
@@ -517,7 +545,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -594,6 +622,20 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="DatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Price_display" ColumnName="Price_display" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DatabaseModel.Users">
+              <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Price_display" ColumnName="Price_display" />

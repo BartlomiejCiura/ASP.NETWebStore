@@ -11,7 +11,8 @@ namespace WebStoreProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +23,13 @@ namespace WebStoreProject.Models
         }
     
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Display(Name = "Category")]
         public int Category_id { get; set; }
+        [Display(Name = "Brutto price")]
         public double Price_brutto { get; set; }
+        [Display(Name = "VAT")]
         public int VAT_id { get; set; }
         public double Weight { get; set; }
     

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WebStoreProject.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Create", "Product")'">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Create new
+    </button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price_brutto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VAT.Value)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price_brutto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VAT.Value)%
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Product", new { id = item.Id })'">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                Edit
+            </button>
+            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Product", new { id = item.Id })'">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                Details
+            </button>
+            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Product", new { id = item.Id })'">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                Delete
+            </button>
+        </td>
+    </tr>
+}
+
+</table>

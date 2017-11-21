@@ -104,9 +104,10 @@ namespace WebStoreProject.Controllers
             }
             catch
             {
+                Category category = db.Category.Find(id);
                 ViewBag.Error = true;
-                ViewBag.ErrorMsg = "You can not delete this category! Make sure it has no subcategories and try again!";
-                return View();
+                ViewBag.ErrorMsg = "Some error occured! Contact with administration!";
+                return View(category);
             }
         }
 

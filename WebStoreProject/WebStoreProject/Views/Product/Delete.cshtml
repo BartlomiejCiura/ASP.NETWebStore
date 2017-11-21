@@ -28,6 +28,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Description)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Weight)
         </dt>
 
@@ -44,7 +52,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VAT.Id)
+            @Html.DisplayNameFor(model => model.VAT)
         </dt>
 
         <dd>

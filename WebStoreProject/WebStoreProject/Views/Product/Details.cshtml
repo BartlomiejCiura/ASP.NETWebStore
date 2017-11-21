@@ -1,0 +1,66 @@
+﻿@model WebStoreProject.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price_brutto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price_brutto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VAT.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VAT.Id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <input type="button" value="Edit" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Product", new { id = Model.Id })'" />
+    <input type="button" value="Back to List" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Product")'" />
+</p>

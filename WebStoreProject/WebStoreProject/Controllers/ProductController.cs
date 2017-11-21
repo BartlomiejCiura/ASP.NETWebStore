@@ -26,7 +26,8 @@ namespace WebStoreProject.Controllers
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Product product = db.Product.Find(id);
+            return View(product);
         }
 
         // GET: Product/Create

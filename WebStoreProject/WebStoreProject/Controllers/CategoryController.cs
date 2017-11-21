@@ -58,6 +58,7 @@ namespace WebStoreProject.Controllers
         {
             List<Category> categories = db.Category.ToList();
             Category category = db.Category.Find(id);
+            categories.Remove(category);
             categories.Insert(0, null);
             ViewBag.Categories = new SelectList(categories, "Id", "Name");
 

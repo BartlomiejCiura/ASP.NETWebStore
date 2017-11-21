@@ -34,7 +34,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <input type="button" value="Back to List" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Category")'" />
 </div>
 
 @section Scripts {

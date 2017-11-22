@@ -6,50 +6,57 @@
 
 <h2>Shopping cart</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Product name")
-        </th>
-        <th>
-            @Html.DisplayName("Quantity")
-        </th>
-        <th>
-            @Html.DisplayName("Price")
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var cart in (List<ShoppingCart>)Session["Cart"])
-    {
+@if (Session["Cart"] != null)
+{
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => cart.Product.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => cart.Quantity)
-            </td>
-            <td>
-                @{ 
-                    var sum = String.Format("{0:N2}", @cart.Product.Price_brutto * @cart.Quantity);
-                }
-                @sum
-            </td>
-            <td>
-                <button type="button" class="close" onclick="location.href='@Url.Action("Delete", "ShoppingCart", new { id = cart.Product.Id })'">
-                    &times;
-                </button>
-            </td>
+            <th>
+                @Html.DisplayName("Product name")
+            </th>
+            <th>
+                @Html.DisplayName("Quantity")
+            </th>
+            <th>
+                @Html.DisplayName("Price")
+            </th>
+            <th></th>
         </tr>
-    }
-    <tr>
-        @{
-            List<ShoppingCart> temp = (List<ShoppingCart>)Session["Cart"];
-            var total = String.Format("{0:N2}", temp.Sum(x => x.Product.Price_brutto * x.Quantity));
-        }
-        <td colspan="2"></td>
-        <td>@total</td>
-        <td></td>
-    </tr>
 
-</table>
+        @foreach (var cart in (List<ShoppingCart>)Session["Cart"])
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(cart.Product.Name, "Details", "Product", new { id = cart.Product.Id }, null)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => cart.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @{ 
+                        var sum = String.Format("{0:N2}", @cart.Product.Price_brutto * @cart.Quantity);
+                    }
+                    @sum
+                </td>
+                <td>
+                    <button type="button" class="close" onclick="location.href='@Url.Action("Delete", "ShoppingCart", new { id = cart.Product.Id })'">
+                        &times;
+                    </button>
+                </td>
+            </tr>
+                        }
+        <tr>
+            @{
+                List<ShoppingCart> temp = (List<ShoppingCart>)Session["Cart"];
+                var total = String.Format("{0:N2}", temp.Sum(x => x.Product.Price_brutto * x.Quantity));
+            }
+            <td colspan="2"></td>
+            <td>@total</td>
+            <td></td>
+        </tr>
+
+    </table>
+}
+else
+{
+    <p>You don't have shopping card! Go to products and order something!</p>
+}

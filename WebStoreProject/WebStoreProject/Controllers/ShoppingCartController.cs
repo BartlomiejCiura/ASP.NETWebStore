@@ -79,5 +79,17 @@ namespace WebStoreProject.Controllers
             }
             return -1;
         }
+
+        public ActionResult UpdateCart(FormCollection frc)
+        {
+            string[] quantities = frc.GetValues("cart.Quantity");
+            List<ShoppingCart> listCart = (List<ShoppingCart>)Session[strCart];
+            for(int i=0; i<listCart.Count; i++)
+            {
+                listCart[i].Quantity = Convert.ToInt32(quantities[i]);
+            }
+            Session[strCart] = listCart;
+            return RedirectToAction("Index", "Summary", new { area = "" });
+        }
     }
 }

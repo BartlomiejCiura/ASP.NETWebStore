@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="DatabaseModel.Orders" Width="1.5" PointX="3" PointY="8.5" />
         <EntityTypeShape EntityType="DatabaseModel.Product" Width="1.5" PointX="3" PointY="3.25" />
         <EntityTypeShape EntityType="DatabaseModel.Status" Width="1.5" PointX="3" PointY="12" />
-        <EntityTypeShape EntityType="DatabaseModel.User" Width="1.5" PointX="7.75" PointY="5.125" />
         <EntityTypeShape EntityType="DatabaseModel.Users" Width="1.5" PointX="0.75" PointY="8.5" />
         <EntityTypeShape EntityType="DatabaseModel.VAT" Width="1.5" PointX="0.75" PointY="4" />
         <EntityTypeShape EntityType="DatabaseModel.Warehouse" Width="1.5" PointX="5.25" PointY="6.875" />

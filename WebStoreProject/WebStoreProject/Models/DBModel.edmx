@@ -66,19 +66,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Price_display" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Discount" Type="int" />
-          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -223,7 +210,6 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VAT" EntityType="Self.VAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
@@ -276,7 +262,6 @@
           <EntitySet Name="Orders" EntityType="DatabaseModel.Orders" />
           <EntitySet Name="Product" EntityType="DatabaseModel.Product" />
           <EntitySet Name="Status" EntityType="DatabaseModel.Status" />
-          <EntitySet Name="User" EntityType="DatabaseModel.User" />
           <EntitySet Name="Users" EntityType="DatabaseModel.Users" />
           <EntitySet Name="VAT" EntityType="DatabaseModel.VAT" />
           <EntitySet Name="Warehouse" EntityType="DatabaseModel.Warehouse" />
@@ -392,19 +377,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Order_details" Relationship="DatabaseModel.FK_Order_details_ToTable_1" FromRole="Status" ToRole="Order_details" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Price_display" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Discount" Type="Int32" />
-          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -614,20 +586,6 @@
           <EntitySetMapping Name="Status">
             <EntityTypeMapping TypeName="DatabaseModel.Status">
               <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="DatabaseModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Price_display" ColumnName="Price_display" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

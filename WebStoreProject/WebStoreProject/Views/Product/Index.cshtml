@@ -50,6 +50,10 @@
             @Html.DisplayFor(modelItem => item.VAT.Value)%
         </td>
         <td>
+            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("OrderNow", "ShoppingCart", new { id = item.Id })'">
+                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                Add to order
+            </button>
             <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Product", new { id = item.Id })'">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 Edit

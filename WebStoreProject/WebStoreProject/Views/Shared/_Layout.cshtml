@@ -28,6 +28,14 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li style="font-size: 22px;">
+                        @Html.ActionLink(" ", "Index", "ShoppingCart", new { area = "" }, new { @class = "fa fa-shopping-cart" })
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </div>

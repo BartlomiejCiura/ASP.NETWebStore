@@ -14,9 +14,10 @@ namespace WebStoreProject.Models
 
 using System;
     using System.Collections.Generic;
-    
-public partial class Orders
-{
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Orders
+    {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
     public Orders()
@@ -32,9 +33,9 @@ public partial class Orders
     public int Id { get; set; }
 
     public int User_id { get; set; }
-
+    [Required]
     public string Payment { get; set; }
-
+    [Required]
     public string Shipment { get; set; }
 
     public double Value { get; set; }

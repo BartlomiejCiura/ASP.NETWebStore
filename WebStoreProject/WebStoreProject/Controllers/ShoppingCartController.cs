@@ -7,6 +7,7 @@ using WebStoreProject.Models;
 
 namespace WebStoreProject.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
         private DBModel db;
@@ -80,7 +81,7 @@ namespace WebStoreProject.Controllers
             return -1;
         }
 
-        public ActionResult UpdateCart(FormCollection frc)
+        public ActionResult Summary(FormCollection frc)
         {
             string[] quantities = frc.GetValues("cart.Quantity");
             List<ShoppingCart> listCart = (List<ShoppingCart>)Session[strCart];
@@ -88,8 +89,20 @@ namespace WebStoreProject.Controllers
             {
                 listCart[i].Quantity = Convert.ToInt32(quantities[i]);
             }
+
             Session[strCart] = listCart;
-            return RedirectToAction("Index", "Summary", new { area = "" });
+            ViewBag.Modal = true;
+
+            return View("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -7,29 +7,35 @@ using WebStoreProject.Models;
 
 namespace WebStoreProject.Controllers
 {
-    public class SummaryController : Controller
+    [Authorize(Roles = "ROLE_ADMIN")]
+    public class OrdersAdminController : Controller
     {
-        //private string strCart = "Cart";
-        // GET: Summary
+        private DBModel db;
+
+        public OrdersAdminController()
+        {
+            db = new DBModel();
+        }
+        // GET: OrdersAdmin
         public ActionResult Index()
         {
-         //   List<ShoppingCart> listCart = (List<ShoppingCart>)Session[strCart];
-            return View();
+            List<Order_details> orders = db.Order_details.ToList();
+            return View(orders);
         }
 
-        // GET: Summary/Details/5
+        // GET: OrdersAdmin/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Summary/Create
+        // GET: OrdersAdmin/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Summary/Create
+        // POST: OrdersAdmin/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -45,13 +51,13 @@ namespace WebStoreProject.Controllers
             }
         }
 
-        // GET: Summary/Edit/5
+        // GET: OrdersAdmin/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Summary/Edit/5
+        // POST: OrdersAdmin/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -67,13 +73,13 @@ namespace WebStoreProject.Controllers
             }
         }
 
-        // GET: Summary/Delete/5
+        // GET: OrdersAdmin/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Summary/Delete/5
+        // POST: OrdersAdmin/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

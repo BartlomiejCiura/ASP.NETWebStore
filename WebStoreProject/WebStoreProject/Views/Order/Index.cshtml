@@ -31,7 +31,7 @@
         <div class="form-group">
             @Html.Label(" ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <p><b>Total price: </b> @Model.Value</p>
+                <p><b>Total price: </b> @ViewBag.PriceToDisplay</p>
                 <p><b>Customer: </b>@Model.Users.Name</p>
             </div>
         </div>

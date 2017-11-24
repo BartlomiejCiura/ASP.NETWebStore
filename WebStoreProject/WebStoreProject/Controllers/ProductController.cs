@@ -20,6 +20,19 @@ namespace WebStoreProject.Controllers
         public ActionResult Index()
         {
             List<Product> products = db.Product.ToList();
+
+            if(User.Identity.IsAuthenticated)
+            {
+                Users user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
+                ViewBag.PriceDisplay = user.Price_display;
+
+                if (user.Price_display.Equals("NETTO"))
+                {
+                    products.ForEach(p => p.Price_brutto = (p.Price_brutto / (100 + p.VAT.Value)) * 100);
+                    products.ForEach(p => p.Price_brutto = Math.Truncate(p.Price_brutto * 100) / 100);
+                }
+            }
+
             return View(products);
         }
 

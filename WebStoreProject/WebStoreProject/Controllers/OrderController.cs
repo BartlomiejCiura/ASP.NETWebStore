@@ -23,6 +23,16 @@ namespace WebStoreProject.Controllers
             List<ShoppingCart> temp = (List<ShoppingCart>)Session["Cart"];
             double totalPrice = temp.Sum(x => x.Product.Price_brutto * x.Quantity);
 
+            ViewBag.PriceToDisplay = totalPrice;
+            if (User.Identity.IsAuthenticated)
+            {
+                if (user.Price_display.Equals("NETTO"))
+                {
+                    double netto = temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.VAT.Value)) * 100) * x.Quantity);
+                    ViewBag.PriceToDisplay = String.Format("{0:N2}", Math.Truncate(netto* 100) / 100);
+                }
+            }
+
             Orders order = new Orders();
             order.User_id = user.Id;
             order.Users = user;

@@ -45,7 +45,7 @@
                                             if (user.Price_display.Equals("NETTO"))
                                             {
                                                 Product originalProduct = db.Product.Include("VAT").Where(s => s.Id == cart.Product.Id).FirstOrDefault();
-                                                var netto = String.Format("{0:N2}", ((originalProduct.Price_brutto / (100 + originalProduct.VAT.Value)) * 100) * cart.Quantity);
+                                                var netto = String.Format("{0:N2}", ((originalProduct.Price_brutto / (100 + originalProduct.Vat.Value)) * 100) * cart.Quantity);
                                                 @netto
                                             }
                                             else
@@ -75,7 +75,7 @@
                                         Users user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
                                         if (user.Price_display.Equals("NETTO"))
                                         {
-                                            var totalnetto = String.Format("{0:N2}", temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.VAT.Value)) * 100) * x.Quantity));
+                                            var totalnetto = String.Format("{0:N2}", temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.Vat.Value)) * 100) * x.Quantity));
                                             @totalnetto
                                         }
                                         else

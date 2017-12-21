@@ -39,7 +39,7 @@ namespace WebStoreProject.Controllers
 
         // POST: Catergory/Create
         [HttpPost]
-        public ActionResult Create(Category category)
+        public ActionResult Create(Category category, FormCollection form)
         {
             try
             {

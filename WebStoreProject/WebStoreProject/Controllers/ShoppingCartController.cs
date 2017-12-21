@@ -26,7 +26,7 @@ namespace WebStoreProject.Controllers
 
         public ActionResult Delete(int id)
         {
-            int position = getProductIndex(id);
+            int position = GetProductIndex(id);
             List<ShoppingCart> listCart = (List<ShoppingCart>)Session[strCart];
             listCart.RemoveAt(position);
             return View("Index");
@@ -45,9 +45,9 @@ namespace WebStoreProject.Controllers
             else
             {
                 List<ShoppingCart> listCart = (List<ShoppingCart>)Session[strCart];
-                if(isProductAdded(id))
+                if(IsProductAdded(id))
                 {
-                    int position = getProductIndex(id);
+                    int position = GetProductIndex(id);
                     listCart[position].Quantity++;
                 } else
                 {
@@ -58,7 +58,7 @@ namespace WebStoreProject.Controllers
             return View("Index");
         }
 
-        private bool isProductAdded(int id)
+        private bool IsProductAdded(int id)
         {
             List<ShoppingCart> listCart = (List<ShoppingCart>)Session[strCart];
             foreach(ShoppingCart sc in listCart) 
@@ -71,7 +71,7 @@ namespace WebStoreProject.Controllers
             return false;
         }
 
-        private int getProductIndex(int id)
+        private int GetProductIndex(int id)
         {
             List<ShoppingCart> listCart = (List<ShoppingCart>)Session[strCart];
             for(int i=0; i<listCart.Count; i++)

@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Upper_category)
+            @Html.DisplayNameFor(model => model.UpperCategoryID)
         </th>
         <th></th>
     </tr>
@@ -29,7 +29,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Category2.Name)
+            @Html.DisplayFor(modelItem => item.UpperCategory.Name)
         </td>
         <td>
             <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Category", new { id = item.Id })'">

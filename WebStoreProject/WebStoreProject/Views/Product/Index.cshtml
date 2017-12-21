@@ -21,13 +21,10 @@
             @Html.DisplayNameFor(model => model.Price_brutto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Weight)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Category)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VAT)
+            @Html.DisplayNameFor(model => model.VatID)
         </th>
         <th></th>
     </tr>
@@ -42,13 +39,17 @@
                 @Html.DisplayFor(modelItem => item.Price_brutto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VAT.Value)%
+                @if (item.Vat != null)
+                {
+                    @Html.DisplayFor(modelItem => item.Vat.Value)<label>%</label>
+                }
+                else
+                {
+                   <p>ZWOLNIONY Z PODATKU VAT</p>
+                }
             </td>
             <td class="text-center">
                 @if (User.IsInRole("ROLE_ADMIN"))

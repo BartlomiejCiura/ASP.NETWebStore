@@ -29,12 +29,12 @@ namespace WebStoreProject.Controllers
                 if (user.Price_display.Equals("NETTO"))
                 {
                     temp.ForEach(x => {
-                        if (x.Product.VAT.Value == null)
+                        if (x.Product.Vat.Value == null)
                         {
-                            x.Product.VAT.Value = 0;
+                            x.Product.Vat.Value = 0;
                         }
                     });
-                    double? nullableNetto = temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.VAT.Value)) * 100) * x.Quantity);
+                    double? nullableNetto = temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.Vat.Value)) * 100) * x.Quantity);
                     double netto = 0;
                     if (nullableNetto.HasValue)
                     {
@@ -49,8 +49,8 @@ namespace WebStoreProject.Controllers
 
             Orders order = new Orders()
             {
-                User_id = user.Id,
-                Users = user,
+                User = user,
+                UserID = user.Id,
                 Shipment = user.Address,
                 Value = totalPrice
             };
@@ -83,8 +83,8 @@ namespace WebStoreProject.Controllers
                 {
                     Order_item orderItem = new Order_item()
                     {
-                        Order_id = order.Id,
-                        Product_id = cart.Product.Id,
+                        Order = order,
+                        Product = cart.Product,
                         Quantity = cart.Quantity
                     };
                     db.Order_item.Add(orderItem);
@@ -94,8 +94,8 @@ namespace WebStoreProject.Controllers
 
                 Order_details orderDetails = new Order_details()
                 {
-                    Order_id = order.Id,
-                    Status_id = 1
+                    Order = order,
+                    StatusID = 1
                 };
                 db.Order_details.Add(orderDetails);
                 db.SaveChanges();

@@ -25,9 +25,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Upper_category, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UpperCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Upper_category, ViewBag.Categories as SelectList, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.UpperCategoryID, ViewBag.Categories as SelectList, new { @class = "form-control" })
             </div>
         </div>
 

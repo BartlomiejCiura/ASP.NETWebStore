@@ -27,14 +27,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Weight)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Weight)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
@@ -51,11 +43,18 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VAT)
+            @Html.DisplayNameFor(model => model.VatID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VAT.Value)%
+            @if (Model.Vat != null)
+            {
+                @Html.DisplayFor(model => model.Vat.Value)<label>%</label>
+            }
+            else
+            {
+                <p>ZWOLNIONY Z PODATKU VAT</p>
+            }
         </dd>
 
     </dl>

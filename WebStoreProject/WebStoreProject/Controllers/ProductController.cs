@@ -29,22 +29,22 @@ namespace WebStoreProject.Controllers
                 if (user.Price_display.Equals("NETTO"))
                 {
                     products.ForEach(x => {
-                        if (x.VAT.Value == null)
+                        if (x.Vat.Value == null)
                         {
-                            x.VAT.Value = 0;
+                            x.Vat.Value = 0;
                         }
                     });
 
                     products.ForEach(p => {
                         int abc = 0;
-                        if(!p.VAT.Value.HasValue)
+                        if(!p.Vat.Value.HasValue)
                         {
-                            p.VAT.Value = 0;
+                            p.Vat.Value = 0;
 
                         }
-                        if(p.VAT.Value.HasValue)
+                        if(p.Vat.Value.HasValue)
                         {
-                            abc = p.VAT.Value.Value;
+                            abc = p.Vat.Value.Value;
                         }
                         
                         p.Price_brutto = (p.Price_brutto / (100 + abc)) * 100;

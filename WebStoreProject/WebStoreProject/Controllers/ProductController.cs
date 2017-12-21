@@ -72,6 +72,7 @@ namespace WebStoreProject.Controllers
         }
 
         // GET: Product/Edit/5
+        [Authorize(Roles = "ROLE_ADMIN")]
         public ActionResult Edit(int id)
         {
             Product product = db.Product.Find(id);
@@ -87,6 +88,7 @@ namespace WebStoreProject.Controllers
 
         // POST: Product/Edit/5
         [HttpPost]
+        [Authorize(Roles = "ROLE_ADMIN")]
         public ActionResult Edit(Product product)
         {
             try
@@ -103,6 +105,7 @@ namespace WebStoreProject.Controllers
         }
 
         // GET: Product/Delete/5
+        [Authorize(Roles = "ROLE_ADMIN")]
         public ActionResult Delete(int id)
         {
             ViewBag.Error = false;
@@ -112,6 +115,7 @@ namespace WebStoreProject.Controllers
 
         // POST: Product/Delete/5
         [HttpPost]
+        [Authorize(Roles = "ROLE_ADMIN")]
         public ActionResult Delete(Product product)
         {
             try

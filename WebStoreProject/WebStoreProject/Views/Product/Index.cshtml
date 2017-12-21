@@ -32,42 +32,46 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price_brutto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Weight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VAT.Value)%
-        </td>
-        <td>
-            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("OrderNow", "ShoppingCart", new { id = item.Id })'">
-                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                Add to order
-            </button>
-            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Product", new { id = item.Id })'">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                Edit
-            </button>
-            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Product", new { id = item.Id })'">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                Details
-            </button>
-            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Product", new { id = item.Id })'">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-                Delete
-            </button>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price_brutto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VAT.Value)%
+            </td>
+            <td class="text-center">
+                @if (User.IsInRole("ROLE_ADMIN"))
+                {
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Product", new { id = item.Id })'">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Product", new { id = item.Id })'">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Delete
+                    </button>
+                }
+                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("OrderNow", "ShoppingCart", new { id = item.Id })'">
+                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                    Add to order
+                </button>
+                <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Product", new { id = item.Id })'">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Details
+                </button>
+            </td>
+        </tr>
+    }
 
 </table>

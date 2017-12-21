@@ -28,7 +28,27 @@ namespace WebStoreProject.Controllers
 
                 if (user.Price_display.Equals("NETTO"))
                 {
-                    products.ForEach(p => p.Price_brutto = (p.Price_brutto / (100 + p.VAT.Value)) * 100);
+                    products.ForEach(x => {
+                        if (x.VAT.Value == null)
+                        {
+                            x.VAT.Value = 0;
+                        }
+                    });
+
+                    products.ForEach(p => {
+                        int abc = 0;
+                        if(!p.VAT.Value.HasValue)
+                        {
+                            p.VAT.Value = 0;
+
+                        }
+                        if(p.VAT.Value.HasValue)
+                        {
+                            abc = p.VAT.Value.Value;
+                        }
+                        
+                        p.Price_brutto = (p.Price_brutto / (100 + abc)) * 100;
+                    });
                     products.ForEach(p => p.Price_brutto = Math.Truncate(p.Price_brutto * 100) / 100);
                 }
             }

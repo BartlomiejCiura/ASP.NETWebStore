@@ -28,17 +28,32 @@ namespace WebStoreProject.Controllers
             {
                 if (user.Price_display.Equals("NETTO"))
                 {
-                    double netto = temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.VAT.Value)) * 100) * x.Quantity);
-                    ViewBag.PriceToDisplay = String.Format("{0:N2}", Math.Truncate(netto* 100) / 100);
+                    temp.ForEach(x => {
+                        if (x.Product.VAT.Value == null)
+                        {
+                            x.Product.VAT.Value = 0;
+                        }
+                    });
+                    double? nullableNetto = temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.VAT.Value)) * 100) * x.Quantity);
+                    double netto = 0;
+                    if (nullableNetto.HasValue)
+                    {
+                        netto = nullableNetto.Value;
+                    }
+
+                    
+                    ViewBag.PriceToDisplay = String.Format("{0:N2}", Math.Truncate(netto * 100) / 100);
+                    
                 }
             }
 
-            Orders order = new Orders();
-            order.User_id = user.Id;
-            order.Users = user;
-            order.Shipment = user.Address;
-            order.Value = totalPrice;
-
+            Orders order = new Orders()
+            {
+                User_id = user.Id,
+                Users = user,
+                Shipment = user.Address,
+                Value = totalPrice
+            };
             return View(order);
         }
 
@@ -77,9 +92,11 @@ namespace WebStoreProject.Controllers
                 }
                 Session.Remove("Cart");
 
-                Order_details orderDetails = new Order_details();
-                orderDetails.Order_id = order.Id;
-                orderDetails.Status_id = 1;
+                Order_details orderDetails = new Order_details()
+                {
+                    Order_id = order.Id,
+                    Status_id = 1
+                };
                 db.Order_details.Add(orderDetails);
                 db.SaveChanges();
 

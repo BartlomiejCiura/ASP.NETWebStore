@@ -29,7 +29,7 @@ public partial class VAT
 
     public int Id { get; set; }
 
-    public int Value { get; set; }
+    public int? Value { get; set; }
 
 
 

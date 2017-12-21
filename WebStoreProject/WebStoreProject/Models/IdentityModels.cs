@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace WebStoreProject.Models
 {
@@ -16,18 +17,42 @@ namespace WebStoreProject.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Name { get; set; }
+
+        public string Address { get; set; }
+
+        public string Price_display { get; set; }
+
+        public int? Discount { get; set; }
+
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class DBModel : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public DBModel()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static DBModel Create()
         {
-            return new ApplicationDbContext();
+            return new DBModel();
         }
+
+        public DbSet<Category> Category { get; set; }
+
+        public DbSet<Order_details> Order_details { get; set; }
+
+        public DbSet<Order_item> Order_item { get; set; }
+
+        public DbSet<Orders> Orders { get; set; }
+
+        public DbSet<Product> Product { get; set; }
+
+        public DbSet<Status> Status { get; set; }
+
+        public DbSet<VAT> VAT { get; set; }
     }
 }

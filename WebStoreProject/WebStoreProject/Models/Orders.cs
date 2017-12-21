@@ -10,7 +10,7 @@
         [Key]
         public int Id { get; set; }
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [Required]
         public string Payment { get; set; }
@@ -21,7 +21,7 @@
         public double Value { get; set; }
 
 
-        public virtual Users User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Order_details> Order_details { get; set; }
 

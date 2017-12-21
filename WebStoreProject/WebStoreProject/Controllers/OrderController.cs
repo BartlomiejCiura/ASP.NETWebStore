@@ -18,7 +18,7 @@ namespace WebStoreProject.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            Users user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
+            ApplicationUser user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
 
             List<ShoppingCart> temp = (List<ShoppingCart>)Session["Cart"];
             double totalPrice = temp.Sum(x => x.Product.Price_brutto * x.Quantity);
@@ -83,8 +83,8 @@ namespace WebStoreProject.Controllers
                 {
                     Order_item orderItem = new Order_item()
                     {
-                        Order = order,
-                        Product = cart.Product,
+                        OrderID = order.Id,
+                        ProductID = cart.Product.Id,
                         Quantity = cart.Quantity
                     };
                     db.Order_item.Add(orderItem);

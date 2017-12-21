@@ -23,7 +23,7 @@ namespace WebStoreProject.Controllers
 
             if(User.Identity.IsAuthenticated)
             {
-                Users user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
+                ApplicationUser user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
                 ViewBag.PriceDisplay = user.Price_display;
 
                 if (user.Price_display.Equals("NETTO"))

@@ -44,8 +44,13 @@
                                             ApplicationUser user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First(); user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
                                             if (user.Price_display.Equals("NETTO"))
                                             {
+                                                int? vat = 0;
                                                 Product originalProduct = db.Product.Include("VAT").Where(s => s.Id == cart.Product.Id).FirstOrDefault();
-                                                var netto = String.Format("{0:N2}", ((originalProduct.Price_brutto / (100 + originalProduct.Vat.Value)) * 100) * cart.Quantity);
+                                                if(originalProduct.Vat != null)
+                                                {
+                                                    vat = originalProduct.Vat.Value;
+                                                }
+                                                var netto = String.Format("{0:N2}", ((originalProduct.Price_brutto / (100 + vat)) * 100) * cart.Quantity);
                                                 @netto
                                             }
                                             else
@@ -75,6 +80,15 @@
                                         ApplicationUser user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
                                         if (user.Price_display.Equals("NETTO"))
                                         {
+                                            temp.ForEach(x =>
+                                            {
+                                                x.Product = db.Product.Find(x.Product.Id);
+                                                if(x.Product.Vat == null)
+                                                {
+                                                    x.Product.Vat = new VAT();
+                                                    x.Product.Vat.Value = 0;
+                                                }
+                                            });
                                             var totalnetto = String.Format("{0:N2}", temp.Sum(x => ((x.Product.Price_brutto / (100 + x.Product.Vat.Value)) * 100) * x.Quantity));
                                             @totalnetto
                                         }

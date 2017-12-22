@@ -28,21 +28,9 @@ namespace WebStoreProject.Controllers
 
                 if (user.Price_display.Equals("NETTO"))
                 {
-                    products.ForEach(x => {
-                        if (x.Vat == null)
-                        {
-                            x.Vat = new VAT();
-                        }
-                    });
-
                     products.ForEach(p => {
                         int abc = 0;
-                        if(!p.Vat.Value.HasValue)
-                        {
-                            p.Vat.Value = 0;
-
-                        }
-                        if(p.Vat.Value.HasValue)
+                        if(p.Vat != null)
                         {
                             abc = p.Vat.Value.Value;
                         }

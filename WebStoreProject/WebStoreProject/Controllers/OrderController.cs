@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,12 +19,12 @@ namespace WebStoreProject.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            ApplicationUser user = db.Users.Where(u => u.Email.Equals(User.Identity.Name)).First();
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
 
             List<ShoppingCart> temp = (List<ShoppingCart>)Session["Cart"];
             double totalPrice = temp.Sum(x => x.Product.Price_brutto * x.Quantity);
 
-            ViewBag.PriceToDisplay = totalPrice;
+            ViewBag.PriceToDisplay = String.Format("{0:N2}", totalPrice);
             if (User.Identity.IsAuthenticated)
             {
                 if (user.Price_display.Equals("NETTO"))

@@ -55,7 +55,8 @@ namespace WebStoreProject.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                message == ManageMessageId.ChangePriceSuccess ? "Price type has been changed."
+                : message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
@@ -74,6 +75,28 @@ namespace WebStoreProject.Controllers
             };
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult ChangePriceType(FormCollection form)
+        {
+            string PriceType = form["PriceType"].ToString();
+            using (DBModel db = new DBModel())
+            {
+                try
+                {
+                    ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+                    user.Price_display = PriceType;
+                    UpdateModel(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangePriceSuccess });
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+                }
+            }
+        }
+
 
         //
         // POST: /Manage/RemoveLogin
@@ -375,6 +398,7 @@ namespace WebStoreProject.Controllers
 
         public enum ManageMessageId
         {
+            ChangePriceSuccess,
             AddPhoneSuccess,
             ChangePasswordSuccess,
             SetTwoFactorSuccess,

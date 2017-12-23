@@ -18,6 +18,7 @@
         public int CategoryID { get; set; }
 
         [Display(Name = "Price")]
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public double Price_brutto { get; set; }
 
         [Display(Name = "VAT")]

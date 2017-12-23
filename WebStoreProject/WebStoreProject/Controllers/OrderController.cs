@@ -48,6 +48,12 @@ namespace WebStoreProject.Controllers
                 }
             }
 
+            List<Payment> paymentTypes = db.Payment.ToList();
+            ViewBag.PaymentTypes = new SelectList(paymentTypes, "Id", "Name");
+
+            List<Delivery> deliveryTypes = db.Delivery.ToList();
+            ViewBag.DeliveryTypes = new SelectList(deliveryTypes, "Id", "Name");
+
             Orders order = new Orders()
             {
                 User = user,

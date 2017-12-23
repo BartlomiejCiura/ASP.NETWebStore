@@ -1,0 +1,64 @@
+﻿@model WebStoreProject.Models.Order_details
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.User.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Payment.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.Payment.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Shipment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.Shipment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Delivery)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

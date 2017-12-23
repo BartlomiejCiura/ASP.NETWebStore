@@ -26,44 +26,36 @@ namespace WebStoreProject.Controllers
         // GET: OrdersAdmin/Details/5
         public ActionResult Details(int id)
         {
-            return View();
-        }
-
-        // GET: OrdersAdmin/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: OrdersAdmin/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Order_details details = db.Order_details.Find(id);
+            return View(details);
         }
 
         // GET: OrdersAdmin/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Order_details details = db.Order_details.Find(id);
+
+            List<Payment> paymentTypes = db.Payment.ToList();
+            ViewBag.PaymentTypes = new SelectList(paymentTypes, "Id", "Name");
+
+            List<Delivery> deliveryTypes = db.Delivery.ToList();
+            ViewBag.DeliveryTypes = new SelectList(deliveryTypes, "Id", "Name");
+
+            List<Status> status = db.Status.ToList();
+            ViewBag.Status = new SelectList(status, "Id", "Name");
+
+            return View(details);
         }
 
         // POST: OrdersAdmin/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Order_details order)
         {
             try
             {
-                // TODO: Add update logic here
+                Order_details orderToEdit = db.Order_details.Find(order.Id);
+                UpdateModel(orderToEdit);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -73,26 +65,13 @@ namespace WebStoreProject.Controllers
             }
         }
 
-        // GET: OrdersAdmin/Delete/5
-        public ActionResult Delete(int id)
+        protected override void Dispose(bool disposing)
         {
-            return View();
-        }
-
-        // POST: OrdersAdmin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            if (disposing)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                db.Dispose();
             }
-            catch
-            {
-                return View();
-            }
+            base.Dispose(disposing);
         }
     }
 }

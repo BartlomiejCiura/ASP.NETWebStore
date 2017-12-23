@@ -10,6 +10,7 @@
         [Key]
         public int Id { get; set; }
 
+        [Display(Name = "Status")]
         public string Name { get; set; }
 
         public virtual ICollection<Order_details> Order_details { get; set; }

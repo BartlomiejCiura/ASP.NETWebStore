@@ -54,5 +54,9 @@ namespace WebStoreProject.Models
         public DbSet<Status> Status { get; set; }
 
         public DbSet<VAT> VAT { get; set; }
+
+        public DbSet<Payment> Payment { get; set; }
+
+        public DbSet<Delivery> Delivery { get; set; }
     }
 }

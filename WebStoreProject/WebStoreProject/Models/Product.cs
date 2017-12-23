@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
     using System.Web.Mvc;
 
     public partial class Product
@@ -27,6 +28,14 @@
         [Required]
         [AllowHtml]
         public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "Logo file")]
+        public string LogoImagePath { get; set; }
+
+        [Required]
+        [Display(Name = "Details file")]
+        public string DetailsImagePath { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual VAT Vat { get; set; }

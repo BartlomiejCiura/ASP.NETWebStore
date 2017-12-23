@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -65,10 +66,27 @@ namespace WebStoreProject.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase LogoImageFile, HttpPostedFileBase DetailsImageFile)
         {
             try
             {
+                string logoFileName = Path.GetFileNameWithoutExtension(LogoImageFile.FileName);
+                string logoExtension = Path.GetExtension(LogoImageFile.FileName);
+                logoFileName = logoFileName + DateTime.Now.ToString("yymmssfff") + logoExtension;
+                string logoImgPath = "~/Images/" + logoFileName;
+                logoFileName = Path.Combine(Server.MapPath("~/Images/"), logoFileName);
+
+                string detailsFileName = Path.GetFileNameWithoutExtension(DetailsImageFile.FileName);
+                string detailsExtension = Path.GetExtension(DetailsImageFile.FileName);
+                detailsFileName = detailsFileName + DateTime.Now.ToString("yymmssfff") + detailsExtension;
+                string detailsImgPath = "~/Images/" + detailsFileName;
+                detailsFileName = Path.Combine(Server.MapPath("~/Images/"), detailsFileName);
+
+                LogoImageFile.SaveAs(logoFileName);
+                DetailsImageFile.SaveAs(detailsFileName);
+
+                product.LogoImagePath = logoImgPath;
+                product.DetailsImagePath = detailsImgPath;
                 db.Product.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -97,12 +115,35 @@ namespace WebStoreProject.Controllers
         // POST: Product/Edit/5
         [HttpPost]
         [Authorize(Roles = "ROLE_ADMIN")]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(Product product, HttpPostedFileBase LogoImageFile, HttpPostedFileBase DetailsImageFile)
         {
             try
             {
                 Product productToEdit = db.Product.Find(product.Id);
-                UpdateModel(productToEdit);
+
+                if(LogoImageFile != null)
+                {
+                    string logoFileName = Path.GetFileNameWithoutExtension(LogoImageFile.FileName);
+                    string logoExtension = Path.GetExtension(LogoImageFile.FileName);
+                    logoFileName = logoFileName + DateTime.Now.ToString("yymmssfff") + logoExtension;
+                    string logoImgPath = "~/Images/" + logoFileName;
+                    logoFileName = Path.Combine(Server.MapPath("~/Images/"), logoFileName);
+                    LogoImageFile.SaveAs(logoFileName);
+                    productToEdit.LogoImagePath = logoImgPath;
+                }
+
+                if(DetailsImageFile != null)
+                {
+                    string detailsFileName = Path.GetFileNameWithoutExtension(DetailsImageFile.FileName);
+                    string detailsExtension = Path.GetExtension(DetailsImageFile.FileName);
+                    detailsFileName = detailsFileName + DateTime.Now.ToString("yymmssfff") + detailsExtension;
+                    string detailsImgPath = "~/Images/" + detailsFileName;
+                    detailsFileName = Path.Combine(Server.MapPath("~/Images/"), detailsFileName);
+                    DetailsImageFile.SaveAs(detailsFileName);
+                    productToEdit.DetailsImagePath = detailsImgPath;
+                }
+
+                TryUpdateModel(productToEdit);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

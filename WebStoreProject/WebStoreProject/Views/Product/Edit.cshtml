@@ -1,13 +1,10 @@
 ﻿@model WebStoreProject.Models.Product
 
-@{
-    ViewBag.Title = "Edit";
-}
 
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -49,6 +46,22 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.LogoImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="LogoImageFile" id="LogoImageFile" onchange="showLogoImg(this)" />
+                <img style="margin-top: 10px;" id="logo_img" height="100" width="90" src="@Url.Content(Model.LogoImagePath)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DetailsImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="DetailsImageFile" id="DetailsImageFile" onchange="showDetailsImg(this)" />
+                <img style="margin-top: 10px;" id="details_img" height="200" width="200" src="@Url.Content(Model.DetailsImagePath)" />
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.TextAreaFor(model => model.Description, new { rows = 5, cols = 50, @class = "form-control" })
@@ -73,12 +86,32 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-                $("input[type='submit']").click(function () {
-                    tinyMCE.triggerSave();
-                });
+        $("input[type='submit']").click(function () {
+            tinyMCE.triggerSave();
+        });
 
-                $.validator.setDefaults({
-                    ignore: ''
-                });
+        $.validator.setDefaults({
+            ignore: ''
+        });
+
+        function showLogoImg(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#logo_img').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function showDetailsImg(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#details_img').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 }

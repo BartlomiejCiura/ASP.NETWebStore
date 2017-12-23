@@ -20,6 +20,8 @@ RawBlameHistory
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+Images/
+
 # User-specific files
 *.suo
 *.user
@@ -320,7 +322,7 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
-© 2017 GitHub, Inc.
+Â© 2017 GitHub, Inc.
 Terms
 Privacy
 Security

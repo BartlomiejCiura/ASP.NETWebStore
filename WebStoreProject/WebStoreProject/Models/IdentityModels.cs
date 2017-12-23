@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebStoreProject.Models
 {
@@ -18,8 +19,10 @@ namespace WebStoreProject.Models
             return userIdentity;
         }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Address { get; set; }
 
         public string Price_display { get; set; }

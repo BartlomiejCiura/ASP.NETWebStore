@@ -19,31 +19,49 @@ namespace WebStoreProject.Controllers
             return View(users);
         }
 
-        // GET: Users/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Users/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            ApplicationUser user = db.Users.Find(id);
+            return View(user);
         }
 
         // POST: Users/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ApplicationUser user)
         {
             try
             {
-                // TODO: Add update logic here
-
+                ApplicationUser userToEdit = db.Users.Find(user.Id);
+                UpdateModel(userToEdit);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
+            }
+        }
+
+        public ActionResult Delete(string id)
+        {
+            ApplicationUser user = db.Users.Find(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(ApplicationUser user)
+        {
+            try
+            {
+                ApplicationUser userToDelete = db.Users.Find(user.Id);
+                db.Users.Remove(userToDelete);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
             }
         }
 

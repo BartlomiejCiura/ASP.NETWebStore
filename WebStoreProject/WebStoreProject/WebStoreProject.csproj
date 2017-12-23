@@ -203,9 +203,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712221358014_init.cs" />
-    <Compile Include="Migrations\201712221358014_init.Designer.cs">
-      <DependentUpon>201712221358014_init.cs</DependentUpon>
+    <Compile Include="Migrations\201712230939534_init.cs" />
+    <Compile Include="Migrations\201712230939534_init.Designer.cs">
+      <DependentUpon>201712230939534_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -311,6 +311,8 @@
     <Content Include="Views\OrdersAdmin\Details.cshtml" />
     <Content Include="Views\OrdersAdmin\Edit.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -332,8 +334,8 @@
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712221358014_init.resx">
-      <DependentUpon>201712221358014_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712230939534_init.resx">
+      <DependentUpon>201712230939534_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -23,6 +23,12 @@ namespace WebStoreProject.Controllers
 
             List<ShoppingCart> temp = (List<ShoppingCart>)Session["Cart"];
             double totalPrice = temp.Sum(x => x.Product.Price_brutto * x.Quantity);
+            
+            if(user.Discount.HasValue)
+            {
+                double discount = totalPrice * user.Discount.Value / 100;
+                totalPrice = totalPrice - discount;
+            }
 
             ViewBag.PriceToDisplay = String.Format("{0:N2}", totalPrice);
             if (User.Identity.IsAuthenticated)
@@ -42,7 +48,12 @@ namespace WebStoreProject.Controllers
                         netto = nullableNetto.Value;
                     }
 
-                    
+                    if (user.Discount.HasValue)
+                    {
+                        double discount = netto * user.Discount.Value / 100;
+                        netto = netto - discount;
+                    }
+
                     ViewBag.PriceToDisplay = String.Format("{0:N2}", Math.Truncate(netto * 100) / 100);
                     
                 }
